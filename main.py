@@ -70,9 +70,7 @@ def twoPointCrossover(firstChromosome: str, secondChromosome: str) -> list:
 
 def show(listOfChromosome: list):
     for chromosome in listOfChromosome:
-        print('Chromosome: {0} | Real number: {1} | Evaluation: {2}'.format(chromosome[0],
-                                                                            tranformBinaryToDecimal(chromosome[0]),
-                                                                            chromosome[1]))
+        print('Chromosome: {0} | Real number: {1} | Evaluation: {2}'.format(chromosome[0], tranformBinaryToDecimal(chromosome[0]), chromosome[1]))
 
 
 def sumAllFitnessValues(listOfChromosomes: list) -> float:
