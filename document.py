@@ -1,15 +1,12 @@
-from validation import *
-from transform import *
-from generators import *
+from validation import isInputValid
+from transform import tranformBinaryToDecimal, transformFloatToBinary, invertBinaryValue
+from generators import createEightRandomBinaries, createOneHundredBinaries
 
 """
     firstQuestion: Receive a string with values 0 or 1
     Returns real number converted to float 
 """
-def firstQuestion(numBinaries: str) -> float:
-    if not isInputValid(numBinaries):
-        return "The input is not valid!"
-    
+def firstQuestion(numBinaries: str) -> float:   
     return transformFloatToBinary(numBinaries)
 
 """
@@ -57,7 +54,7 @@ def eightQuestion(listBinaries: list) -> list:
 """
     ninethQuestion: Receive a binaries
     Returns a binaries with the values inveted
-    Example: if 0 = 1 || if 1 = 0
+    Example: if 0:  value = 1 || if 1: value = 0
 """
 def ninethQuestion(binaries: str) -> str:
     newBinary = ''
@@ -65,6 +62,30 @@ def ninethQuestion(binaries: str) -> str:
         newBinary += invertBinaryValue(binary)
     return newBinary
 
-print(ninethQuestion('10101001'))
+"""
+    tenthQuestion: Receive two string with eight values 0 or 1
+    Returns two string 
+        first string -> first 4 numbers of the first string
+        first string -> last 4 numbers of the second string
 
+        second string -> first 4 numbers of the first string
+        second string -> last 4 numbers of the second string
+"""
+def tenthQuestion(firstBinaries: str, secondBinaries: str) -> list:
+    return [ (firstBinaries[:4] + secondBinaries[4:]), (secondBinaries[:4] + firstBinaries[4:]) ]
 
+"""
+    tenthQuestion: Receive two string with eight values 0 or 1
+    Returns two string 
+        first string -> first 2 numbers of the first string
+        first string -> 4 numbers in the middle of the second string
+        first string -> last 2 numbers of the first string
+
+        second string -> first 2 numbers of the second string
+        second string -> 4 numbers in the middle of the first string
+        second string -> last 2 numbers of the second string
+"""
+def eleventhQuestion(firstBinaries: str, secondBinaries: str) -> list:
+    return [ (firstBinaries[:2] + secondBinaries[2:6] + firstBinaries[6:]), (secondBinaries[:2] + firstBinaries[2:6] + secondBinaries[6:]) ]
+
+print(eleventhQuestion('11111111', '00000000'))

@@ -5,3 +5,6 @@ Simulation of genetic algorithms in python.
 - Roulette
 - Tournament
 - Dizimação
+
+## Python resources
+- Type hints
