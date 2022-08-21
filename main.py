@@ -68,8 +68,15 @@ def sumAllFitnessValues(listOfChromosomes: list) -> float:
         totalFitnessValue += float(eachChromosome[1])
     return totalFitnessValue
 
+def getLastChromosomeSum(listOfChromosomes: list, limit: float) -> float:
+    sumFitnessValue = 0
+    for eachChromosome in listOfChromosomes:
+        sumFitnessValue += float(eachChromosome[1])
+        if sumFitnessValue >= limit:
+            return eachChromosome
+
 def generateRandomNumber(inital: float, final: float) -> int:
-    return random.uniform(inital, final+1)
+    return random.uniform(inital, final)
 
 def getTheBestChromosome(listOfChromosomes: list) -> list:
     listOfChromosomes = bubbleSort(listOfChromosomes)
@@ -82,6 +89,11 @@ def getTopTenChromosome(listOfChromosomes: list) -> list:
 
 def RouletteWhellSelection(listOfChromosomes: list) -> list: 
     totalFitnessValue = sumAllFitnessValues(listOfChromosomes)
+    randomNumber = round (generateRandomNumber(0, 1), 2)
+    limit = totalFitnessValue * randomNumber
+    lastChromossome = getLastChromosomeSum(listOfChromosomes, limit)
+    return lastChromossome
+
 
 def decimationSelection(listOfChromosomes: list) -> list:
     return getTopTenChromosome(listOfChromosomes)
@@ -89,6 +101,3 @@ def decimationSelection(listOfChromosomes: list) -> list:
 # def TournamentSelection(listOfChromosomes: list) -> list: 
 #     print('WIP - Working In Progress')
 
-
-
-# print(generateRandomNumber(0,1))
