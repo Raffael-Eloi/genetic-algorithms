@@ -71,25 +71,5 @@ def getTheBestChromosome(listOfChromosomes: list) -> list:
 
 def getTopTenChromosome(listOfChromosomes: list) -> list:
     listOfChromosomes = bubbleSort(listOfChromosomes)
-    return listOfChromosomes[90:]
-
-
-
-population = inicialization()
-
-fitnessTeste = fitness(population)
-
-print('All the population')
-populationOrdered = bubbleSort(fitnessTeste)
-show(populationOrdered) 
-
-print('\n')
-print('Best evaluation')
-
-bestChromosome = getTheBestChromosome(fitnessTeste)
-show([bestChromosome]) 
-
-print('\n')
-print('Top 10 Best')
-bestChromosome = getTopTenChromosome(fitnessTeste)
-show(bestChromosome) 
+    initialPosition = int( len(listOfChromosomes) * 0.9 )
+    return listOfChromosomes[initialPosition:]
