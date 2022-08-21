@@ -103,7 +103,7 @@ def getRandomChromosomes(listOfChromosomes: list, quantity: int) -> list:
     for i in listOfChromosomes:
         if quantityUsed < quantity:
             randomPosition = random.randrange(0, len(listOfChromosomes))
-            chromossomeSelected.append( listOfChromosomes[randomPosition])
+            chromossomeSelected.append( listOfChromosomes[randomPosition] )
             quantityUsed += 1
     return chromossomeSelected
 

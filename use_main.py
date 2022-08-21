@@ -33,8 +33,3 @@ fitnessTeste = fitness(population)
 # print('Tournament selection')
 # tournamentSelectionPopulation = TournamentSelection(fitnessTeste)
 # print(tournamentSelectionPopulation) 
-
-print('\n')
-print('Tournament selection')
-tournamentSelectionPopulation = TournamentSelection(fitnessTeste)
-print(tournamentSelectionPopulation) 
