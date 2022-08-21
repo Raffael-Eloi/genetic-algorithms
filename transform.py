@@ -5,6 +5,12 @@ def tranformIntegerToBinary(value: str) -> bin:
 # tranformIntegerToBinary: Returns a converted value from integer to binary
 def tranformBinaryToDecimal(binary: str) -> int:
     return int(binary, 2)
+
+def tranformBinaryToFloat(binary: str) -> float:
+    firstTwoValues = tranformBinaryToDecimal(binary[0:2])
+    lastSixValues  = tranformBinaryToDecimal(binary[2:])
+    valueFormated = str(firstTwoValues) + '.' + str(lastSixValues)
+    return float(valueFormated)
     
 # transformFloatToBinary: Returns a converted value from float to binary
 def transformFloatToBinary(binaries: str):
@@ -18,4 +24,8 @@ def transformFloatToBinary(binaries: str):
 
 def invertBinaryValue(binary: str) -> str:
     if binary == '0': return '1'
+    return '0'
+
+def invertGene(gene: str) -> str:
+    if gene == '0': return '1'
     return '0'
