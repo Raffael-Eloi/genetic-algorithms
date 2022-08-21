@@ -26,6 +26,6 @@ def invertBinaryValue(binary: str) -> str:
     if binary == '0': return '1'
     return '0'
 
-def invertGene(gene: str) -> str:
+def invertGeneValue(gene: str) -> str:
     if gene == '0': return '1'
     return '0'

@@ -1,5 +1,5 @@
 import random
-from transform import invertGene, tranformBinaryToFloat 
+from transform import invertGeneValue, tranformBinaryToFloat 
 
 def createChromosome() -> str:
     chromosome = ''
@@ -23,15 +23,25 @@ def getFitnessValue(chromosome: str) -> list:
 def fitness(listOfChromosomes: list) -> list:
     fitnessList = []
     for eachChromosome in listOfChromosomes:
-        chromosomeWithValue = [eachChromosome]
-        chromosomeWithValue.append( getFitnessValue(eachChromosome) )
+        chromosomeWithValue = getFitnessValue(eachChromosome)
         fitnessList.append(chromosomeWithValue)
     return fitnessList
+
+def bubbleSort(listOfChromosomes: list) -> list:
+    quantityOfChromossomes = len(listOfChromosomes) - 1
+    for eachQuantity in range(quantityOfChromossomes):
+        for position in range(0, quantityOfChromossomes - eachQuantity):
+            if listOfChromosomes[position][1] > listOfChromosomes[position + 1][1]:
+                temporary = listOfChromosomes[position]
+                listOfChromosomes[position] = listOfChromosomes[position + 1]
+                listOfChromosomes[position + 1] = temporary
+    return listOfChromosomes 
+
 
 def crossover(chromosome: str) -> str:
     newChromosome = ''
     for gene in chromosome:
-        newChromosome += invertGene(gene)
+        newChromosome += invertGeneValue(gene)
     return newChromosome
 
 def onePointCrossover(firstChromosome: str, secondChromosome: str) -> list:
@@ -45,7 +55,6 @@ def twoPointCrossover(firstChromosome: str, secondChromosome: str) -> list:
     return [ firstChromosomeModified, secondChromosomeModified ]
 
 population = inicialization()
-# print(fitness(population)) 
-
-
-
+fitnessTeste = fitness(population)
+# bubbleSort(fitnessTeste) 
+print(bubbleSort(fitnessTeste)) 
