@@ -1,5 +1,5 @@
 import random
-from transform import invertGeneValue, tranformBinaryToFloat 
+from transform import invertGeneValue, tranformBinaryToFloat, tranformBinaryToDecimal
 
 def createChromosome() -> str:
     chromosome = ''
@@ -15,15 +15,20 @@ def inicialization() -> list:
         listOfChromosomes.append( chromosome )
     return listOfChromosomes
 
-def getFitnessValue(chromosome: str) -> list:
+def getFloatValue(chromosome: str) -> list:
     fitnessList = [chromosome]
     fitnessList.append( tranformBinaryToFloat(chromosome) )
     return fitnessList
 
+def getFitnessValue(chromosomeNumber: float) -> float:
+    return abs(2 - (chromosomeNumber * chromosomeNumber))
+
 def fitness(listOfChromosomes: list) -> list:
     fitnessList = []
     for eachChromosome in listOfChromosomes:
-        chromosomeWithValue = getFitnessValue(eachChromosome)
+        chromosomeWithValue = getFloatValue(eachChromosome)
+        chromosomeWithValue[1] = getFitnessValue(chromosomeWithValue[1])
+        chromosomeWithValue = getFloatValue(eachChromosome)
         fitnessList.append(chromosomeWithValue)
     return fitnessList
 
@@ -36,7 +41,6 @@ def bubbleSort(listOfChromosomes: list) -> list:
                 listOfChromosomes[position] = listOfChromosomes[position + 1]
                 listOfChromosomes[position + 1] = temporary
     return listOfChromosomes 
-
 
 def crossover(chromosome: str) -> str:
     newChromosome = ''
@@ -54,7 +58,38 @@ def twoPointCrossover(firstChromosome: str, secondChromosome: str) -> list:
     secondChromosomeModified = secondChromosome[:2] + firstChromosome[2:6] + secondChromosome[6:]
     return [ firstChromosomeModified, secondChromosomeModified ]
 
+def show(listOfChromosome: list):
+    for chromosome in listOfChromosome:
+        print('Chromosome: {0} | Real number: {1} | Evaluation: {2}'.format(chromosome[0], tranformBinaryToDecimal(chromosome[0]), chromosome[1]) )
+
+def selection(): 
+    print('WIP - Working In Progress')
+
+def getTheBestChromosome(listOfChromosomes: list) -> list:
+    listOfChromosomes = bubbleSort(listOfChromosomes)
+    return listOfChromosomes[-1]
+
+def getTopTenChromosome(listOfChromosomes: list) -> list:
+    listOfChromosomes = bubbleSort(listOfChromosomes)
+    return listOfChromosomes[90:]
+
+
+
 population = inicialization()
+
 fitnessTeste = fitness(population)
-# bubbleSort(fitnessTeste) 
-print(bubbleSort(fitnessTeste)) 
+
+print('All the population')
+populationOrdered = bubbleSort(fitnessTeste)
+show(populationOrdered) 
+
+print('\n')
+print('Best evaluation')
+
+bestChromosome = getTheBestChromosome(fitnessTeste)
+show([bestChromosome]) 
+
+print('\n')
+print('Top 10 Best')
+bestChromosome = getTopTenChromosome(fitnessTeste)
+show(bestChromosome) 
