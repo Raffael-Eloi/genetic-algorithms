@@ -94,10 +94,28 @@ def RouletteWhellSelection(listOfChromosomes: list) -> list:
     lastChromossome = getLastChromosomeSum(listOfChromosomes, limit)
     return lastChromossome
 
-
 def decimationSelection(listOfChromosomes: list) -> list:
     return getTopTenChromosome(listOfChromosomes)
 
-# def TournamentSelection(listOfChromosomes: list) -> list: 
-#     print('WIP - Working In Progress')
+def getRandomChromosomes(listOfChromosomes: list, quantity: int) -> list:
+    chromossomeSelected = []
+    quantityUsed = 0
+    for i in listOfChromosomes:
+        if quantityUsed < quantity:
+            randomPosition = random.randrange(0, len(listOfChromosomes))
+            chromossomeSelected.append( listOfChromosomes[randomPosition])
+            quantityUsed += 1
+    return chromossomeSelected
+
+def selectTheBestByTournament(listOfChromosomes: list, candidates: int, quantityIntermediary: int) -> list:
+    intermediaryChromosomes = [] 
+    for eachQuantity in range(quantityIntermediary):
+        listOfChromosomes = getRandomChromosomes(listOfChromosomes, candidates)
+        intermediaryChromosomes.append( getTheBestChromosome(listOfChromosomes) )
+        listOfChromosomes.remove( getTheBestChromosome(listOfChromosomes) )
+    return intermediaryChromosomes
+
+def TournamentSelection(listOfChromosomes: list) -> list:
+    bestChromosomes = selectTheBestByTournament(listOfChromosomes, 50, 3)
+    return bestChromosomes
 
