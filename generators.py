@@ -13,3 +13,6 @@ def createOneHundredBinaries() -> list:
     for eachBinaryList in range(100):
         listOfBinaries.append( createEightRandomBinaries() )
     return listOfBinaries
+
+def generateRandomNumber(inital: int, final: int) -> int:
+    return random.randrange(inital, final + 1)
