@@ -1,0 +1,6 @@
+- Professor não pode dar duas ou mais aulas no mesmo período
+- Mesma turma não pode ter duas ou mais aulas no mesmo período
+- Os tamanhos das salas e laboratórios devem estar adequados aos tamanhos das turmas
+- turmas práticas devem ser em laboratório(Labin)
+- Professor não pode dar aula em determinado dia
+- Determinado laboratório ou sala não está disponível em determinado dia
