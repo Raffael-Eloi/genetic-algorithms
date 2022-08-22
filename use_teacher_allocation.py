@@ -2,8 +2,12 @@ from teacher_allocation import *
 import time
 
 
-def flow( population: list) -> list:
+def flow():
     gen = 0
+    classroom = generateClassroom(8)
+    weekdays = generateWeekdays(5)
+    classes = generateClasses(33)
+    population = inicialization(classroom, weekdays, classes)
     while 1 != 0:
         fitness(population)
         if finishing(population, gen):
@@ -16,8 +20,5 @@ def flow( population: list) -> list:
         gen += 1
 
 
-classroom = generateClassroom(8)
-weekdays = generateWeekdays(5)
-classes = generateClasses(33)
-population = inicialization(classroom, weekdays, classes)
-flow(population)
+
+flow()

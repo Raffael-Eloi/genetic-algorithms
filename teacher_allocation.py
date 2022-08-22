@@ -196,9 +196,25 @@ def update(newPopulation: list, excludedPopulation: list, classroom: list, weekd
     return population
 
 
+def zeroVerify(population: list) -> bool:
+    count = 0
+    for chromosome in population:
+        if chromosome[6] == 0:
+            count += 1
+    if count >= 13:
+        return True
+    return False
+
+
 def finishing(population: list, gen: int) -> bool:
-    print("Se passaram", gen, "gerações")
-    print(sorted(population, key=lambda x: x[6]))
-    if gen == 80:
+    if zeroVerify(population):
+        print("Finalizado por ter 13 ou mais avaliações máximas")
+        print("Se passaram", gen, "gerações")
+        print(sorted(population, key=lambda x: x[6]))
+        return True
+    if gen == 100000:
+        print("Finalizado por ter se passado 100.000 gerações")
+        print("Se passaram", gen, "gerações")
+        print(sorted(population, key=lambda x: x[6]))
         return True
     return False
