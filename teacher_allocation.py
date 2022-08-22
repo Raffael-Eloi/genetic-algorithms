@@ -1,4 +1,5 @@
 import random
+import time
 
 dataclasses = [[1, 27, 0], [2, 33, 0], [4, 25, 0], [4, 25, 1], [5, 42, 1], [1, 3, 0], [2, 26, 0], [3, 20, 0],
                [5, 45, 1], [6, 42, 1], [6, 20, 0], [5, 19, 0], [1, 43, 0], [6, 45, 0], [7, 30, 0], [2, 20, 0],
@@ -7,6 +8,16 @@ dataclasses = [[1, 27, 0], [2, 33, 0], [4, 25, 0], [4, 25, 1], [5, 42, 1], [1, 3
                [5, 44, 1]]
 
 dataClassroom = [[0, 50], [0, 20], [0, 30], [0, 40], [0, 40], [1, 50], [1, 50], [1, 40]]
+
+
+def strToList(string: str) -> list:
+    strLi = []
+    strLi[:0] = string
+    return strLi
+
+
+def listToStr(listStr: list) -> str:
+    return "".join(str(i) for i in listStr)
 
 
 def twoPointCrossover(firstChromosome: list, secondChromosome: list):
@@ -138,31 +149,56 @@ def selection(population: list) -> list:
     return population[:11]
 
 
+def excludedSelection(population: list) -> list:
+    population = sorted(population, key=lambda x: x[6])
+    return population[11:]
+
+
 def crossover(population: list) -> list:
     listPopulation = []
     population[0].pop()
     crossPopulation = population[1:]
     newPopulation = [(population[0])]
-    print(newPopulation)
     for i in range(len(crossPopulation)):
         if (i % 2) == 0:
-            crossChromosomes = twoPointCrossover(crossPopulation[i], crossPopulation[i+1])
-            listPopulation.extend([crossChromosomes[0], crossPopulation[i][1], crossPopulation[i][2], crossPopulation[i][3], crossPopulation[i][4], crossPopulation[i][5]])
+            crossChromosomes = twoPointCrossover(crossPopulation[i], crossPopulation[i + 1])
+            listPopulation.extend(
+                [crossChromosomes[0], crossPopulation[i][1], crossPopulation[i][2], crossPopulation[i][3],
+                 crossPopulation[i][4], crossPopulation[i][5]])
             newPopulation.append(listPopulation)
             listPopulation = []
-            listPopulation.extend([crossChromosomes[1], crossPopulation[i + 1][1], crossPopulation[i + 1][2], crossPopulation[i + 1][3], crossPopulation[i + 1][4], crossPopulation[i + 1][5]])
+            listPopulation.extend(
+                [crossChromosomes[1], crossPopulation[i + 1][1], crossPopulation[i + 1][2], crossPopulation[i + 1][3],
+                 crossPopulation[i + 1][4], crossPopulation[i + 1][5]])
             newPopulation.append(listPopulation)
             listPopulation = []
     return newPopulation
 
 
 def mutation(population: list) -> list:
-    print(0)
+    chromossomeMutation = random.randrange(0, len(population))
+    geneMutation = random.randrange(0, len(population[chromossomeMutation][0]))
+    listStr = strToList(population[chromossomeMutation][0])
+    if listStr[geneMutation] == "1":
+        listStr[geneMutation] = "0"
+    else:
+        listStr[geneMutation] = "1"
+    population[chromossomeMutation][0] = listToStr(listStr)
 
 
-def update(population: list) -> list:
-    print(0)
+def update(newPopulation: list, excludedPopulation: list, classroom: list, weekdays: list) -> list:
+    classes = []
+    for excludedChromossome in excludedPopulation:
+        classes.append([excludedChromossome[0][7:], [excludedChromossome[3], excludedChromossome[4], excludedChromossome[5]]])
+    population = inicialization(classroom, weekdays, classes)
+    for chromossome in newPopulation:
+        population.append(chromossome)
+    return population
 
 
-def finishing(population: list) -> bool:
-    print(0)
+def finishing(population: list, gen: int) -> bool:
+    print("Se passaram", gen, "gerações")
+    print(sorted(population, key=lambda x: x[6]))
+    if gen == 80:
+        return True
+    return False
